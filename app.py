@@ -8,7 +8,7 @@ def main():
     return '<h1>Миссия Колонизация Марса</h1>'
 
 
-@app.route('//index')
+@app.route('/index')
 def index():
     return '<h2>И на Марсе будут яблони цвести!</h2>'
 
