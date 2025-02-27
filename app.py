@@ -1,4 +1,3 @@
-
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -33,19 +32,25 @@ def promotion_image():
     return render_template('promotion_image.html')
 
 
-@app.route('/astronaut_selection', methods=['GET', 'POST'])
+@app.route('/astronaut_selection')
 def astronaut_selection():
-    if request.method == 'GET':
-        return render_template('astronaut_selection.html')
-    elif request.method == 'POST':
-        print(request.form['surname'])
-        print(request.form['name'])
-        print(request.form['education'])
-        print(request.form['profession'])
-        print(request.form['motivation'])
-        print(request.form['gender'])
-        print(request.form['ready'])
-        return '<h1>Анкета отправлена</h1>'
+    return render_template('astronaut_selection.html')
+
+
+@app.route('/answer', methods=['POST'])
+@app.route('/auto_answer', methods=['POST'])
+def answer():
+    context = {
+        'title': 'Анкета',
+        'surname': request.form['surname'],
+        'name': request.form['name'],
+        'education': request.form['education'],
+        'profession': ', '.join(request.form.getlist('profession')),
+        'gender': request.form['gender'],
+        'motivation': request.form['motivation'],
+        'ready': request.form.get('ready', '') == 'Готов'
+    }
+    return render_template('answer.html', **context)
 
 
 @app.route('/training/<prof>')
@@ -55,6 +60,7 @@ def training(prof):
     }
     return render_template('training.html', **context)
 
+
 @app.route('/list_prof/<lst>')
 def list_prof(lst):
     context = {
@@ -62,6 +68,7 @@ def list_prof(lst):
         'list': lst
     }
     return render_template('list_prof.html', **context)
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
