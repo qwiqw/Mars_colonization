@@ -1,3 +1,4 @@
+
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
@@ -54,6 +55,13 @@ def training(prof):
     }
     return render_template('training.html', **context)
 
+@app.route('/list_prof/<lst>')
+def list_prof(lst):
+    context = {
+        'profs': ['инженер', 'сварщик', 'повар', 'машинист', 'дворник'],
+        'list': lst
+    }
+    return render_template('list_prof.html', **context)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
