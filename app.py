@@ -26,9 +26,11 @@ def promotion():
 def image_mars():
     return render_template('image_mars.html')
 
+
 @app.route('/promotion_image')
 def promotion_image():
     return render_template('promotion_image.html')
+
 
 @app.route('/astronaut_selection', methods=['GET', 'POST'])
 def astronaut_selection():
@@ -43,6 +45,15 @@ def astronaut_selection():
         print(request.form['gender'])
         print(request.form['ready'])
         return '<h1>Анкета отправлена</h1>'
+
+
+@app.route('/training/<prof>')
+def training(prof):
+    context = {
+        'prof': prof
+    }
+    return render_template('training.html', **context)
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080)
