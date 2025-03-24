@@ -3,9 +3,17 @@ from flask_wtf import FlaskForm
 from werkzeug.utils import redirect
 from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import DataRequired
+from jobs_api import blueprint
+from data import db_session
+from flask_restful import Api
+from user_resourse import UserResourse, UserListResourse
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'qwe'
+
+api = Api(app)
+api.add_resource(UserResourse, '/api/v2/users/<int:user_id>')
+api.add_resource(UserListResourse, '/api/v2/users')
 
 
 class LoginForm(FlaskForm):
@@ -94,4 +102,6 @@ def login():
 
 
 if __name__ == '__main__':
+    db_session.global_init('database/mars_exploer.db')
+    app.register_blueprint(blueprint)
     app.run(host='127.0.0.1', port=8080)
