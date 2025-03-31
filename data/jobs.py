@@ -1,7 +1,7 @@
 import sqlalchemy
 from .db_session import SqlAlchemyBase
 import sqlalchemy.orm as orm
-
+from sqlalchemy_serializer import SerializerMixin
 
 class Jobs(SqlAlchemyBase):
     __tablename__ = 'jobs'
