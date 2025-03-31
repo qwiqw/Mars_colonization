@@ -28,7 +28,7 @@ def get_jobs_id(id):
 
 @blueprint.route('/api/jobs', methods=['POST'])
 def create_job():
-    if not request.json():
+    if not request.json:
         return make_response(jsonify({'error': 'Bad request'}), 400)
     column = ['team_leader', 'job', 'collaborators', 'is_finished', 'work_size']
     if not all([key in column for key in request.json]):
