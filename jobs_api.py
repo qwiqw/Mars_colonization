@@ -14,7 +14,7 @@ def get_jobs():
     })
 
 
-@blueprint.route('/api/jobs/<id:int>')
+@blueprint.route('/api/jobs/<int:id>')
 def get_jobs(id):
     sess = db_session.create_session()
     jobs_list = sess.query(Jobs).filter(Jobs.id == id).first()
